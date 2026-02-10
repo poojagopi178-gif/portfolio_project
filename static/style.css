@@ -3,66 +3,88 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
+    background-color: #f4f6fb;
 }
 
+/* Header */
 header {
-    background: #4CAF50;
+    background: linear-gradient(135deg, #4A6CF7, #6C63FF);
     color: white;
-    padding: 20px;
+    padding: 25px;
 }
 
+/* Sections */
 section {
     padding: 20px;
 }
 
+/* Inputs */
 input, textarea {
     width: 80%;
-    margin: 5px;
-    padding: 10px;
-    border-radius: 5px;
+    margin: 6px;
+    padding: 12px;
+    border-radius: 6px;
     border: 1px solid #ccc;
+    font-size: 14px;
 }
 
+/* Button */
 button {
-    padding: 10px 20px;
-    background: #4CAF50;
+    padding: 12px 25px;
+    background: #4A6CF7;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: 14px;
 }
 
+button:hover {
+    background: #3b5bdb;
+}
+
+/* Success Message */
 #response {
-    color: green;
+    color: #6C63FF;
     font-weight: bold;
     margin-top: 10px;
 }
 
+/* Project Card */
 .project-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px auto;
-    width: 250px;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px auto;
+    width: 260px;
     text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Skills */
 .skill {
-    margin: 10px auto;
+    margin: 12px auto;
     width: 80%;
     text-align: left;
+    font-weight: bold;
 }
 
+/* Skill Bar */
 .bar {
     width: 100%;
     background-color: #ddd;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .bar div {
     height: 20px;
-    background-color: #4CAF50;
+    background: linear-gradient(90deg, #4A6CF7, #6C63FF);
     width: 0;
+    border-radius: 20px;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
     input, textarea {
         width: 95%;
