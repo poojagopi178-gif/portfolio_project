@@ -1,73 +1,194 @@
-body {
-    font-family: Arial, sans-serif;
+/* RESET */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* HERO SECTION */
+.hero {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: white;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 30px;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    background: #e0e7ff;
+    transform: translateY(-3px);
+}
+
+/* NAVBAR */
+.navbar {
+    background: #111827;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 15px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    color: #3b82f6;
+}
+
+/* SECTION */
+.section {
+    padding: 80px 20px;
     text-align: center;
 }
 
-header {
-    background: #4CAF50;
-    color: white;
-    padding: 20px;
+.section h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    position: relative;
 }
 
-section {
-    padding: 20px;
+.light {
+    background: #e5e7eb;
 }
 
-input, textarea {
-    width: 80%;
-    margin: 5px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-button {
-    padding: 10px 20px;
-    background: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#response {
-    color: green;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.project-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px auto;
-    width: 250px;
-    text-align: center;
-}
-
+/* SKILLS */
 .skill {
-    margin: 10px auto;
-    width: 80%;
+    width: 60%;
+    margin: 20px auto;
     text-align: left;
 }
 
 .bar {
-    width: 100%;
-    background-color: #ddd;
+    background: #d1d5db;
+    height: 12px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 5px;
 }
 
-.bar div {
-    height: 20px;
-    background-color: #4CAF50;
-    width: 0;
+.progress {
+    height: 12px;
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    border-radius: 20px;
 }
 
+/* PROJECT CARDS */
+.project-card {
+    background: white;
+    width: 60%;
+    margin: 25px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+}
+
+/* FORM */
+form {
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, textarea {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
+}
+
+button {
+    padding: 12px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #1e40af;
+    transform: scale(1.03);
+}
+
+/* RESPONSE MESSAGE */
+#response {
+    margin-top: 15px;
+    font-weight: bold;
+    color: green;
+}
+
+/* FOOTER */
+footer {
+    background: #111827;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
-    input, textarea {
-        width: 95%;
+    .skill,
+    .project-card,
+    form {
+        width: 90%;
     }
-    .project-card, .skill {
-        width: 95%;
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
     }
 }
