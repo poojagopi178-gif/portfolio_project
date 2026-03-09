@@ -1,21 +1,21 @@
 document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault(); // Prevent reload
+    e.preventDefault();
 
-    let formData = new FormData(this);
+    const formData = new FormData(this);
 
     fetch("/submit", {
         method: "POST",
         body: formData
     })
-    .then(response => response.text())
+    .then(res => res.text())
     .then(data => {
         const responseEl = document.getElementById("response");
-        responseEl.innerText = data;
+        responseEl.innerText = data;  // Show success message
         this.reset();
         setTimeout(() => { responseEl.innerText = ""; }, 3000);
     })
     .catch(err => {
         console.error(err);
-        alert("Something went wrong. Try again!");
+        alert("Something went wrong!");
     });
 });
