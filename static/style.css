@@ -185,6 +185,14 @@ footer {
 
     .hero h1 {
         font-size: 32px;
+<<<<<<< HEAD
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+=======
+>>>>>>> 16903a62ad481d46de4e655347e6b2b65051772d
     }
 
     .navbar {
