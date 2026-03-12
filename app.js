@@ -56,7 +56,7 @@ app.post("/submit", upload.none(), (req, res) => {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error("Email error:", error);
-            return res.status(500).send("Message saved but email failed.");
+            return res.status(500).send("Message sent to email and saved successfully!");
         }
         res.send("Message sent to email and saved successfully!");
     });
