@@ -1,68 +1,40 @@
-const express = require("express");
-const fs = require("fs");
-const path = require("path");
-const multer = require("multer");
-const nodemailer = require("nodemailer");
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer'); // for form parsing
 
 const app = express();
-const PORT = process.env.PORT ||3000;
+const PORT = process.env.PORT || 3000;
 
 // Serve static files
-app.use("/static", express.static(path.join(__dirname, "static")));
-
-// Multer for form data
-const upload = multer();
+app.use('/static', express.static(path.join(__dirname, 'static')));
 
 // Serve HTML
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "templates", "index.html"));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'templates', 'index.html'));
 });
 
-// Email setup
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: "poojagopi178@gmail.com",      // 🔴 your gmail
-        pass: "kvavnmmqtiieiccf"     // 🔴 app password
-    }
-});
-
-// Handle form submission
-app.post("/submit", upload.none(), (req, res) => {
+// Handle contact form submission
+const upload = multer(); // no files, just form data
+app.post('/submit', upload.none(), (req, res) => {
     const { name, email, message } = req.body;
 
     if (!name || !email || !message) {
-        return res.status(400).send("All fields are required!");
+        return res.status(400).send('All fields are required!');
     }
 
-    // 📄 Save to messages.txt
-    const filePath = path.join(__dirname, "messages.txt");
-    const data = `Name: ${name}\nEmail: ${email}\nMessage: ${message}\n----------------------\n`;
+    const data = `Name: ${name}, Email: ${email}, Message: ${message}\n`;
+    const filePath = path.join(__dirname, 'messages.txt');
 
     fs.appendFile(filePath, data, (err) => {
         if (err) {
-            console.error("File error:", err);
+            console.error(err);
+            return res.status(500).send('Error saving message.');
         }
-    });
-
-    // 📧 Send email
-    const mailOptions = {
-        from: email,
-        to: "poojagopi178@gmail.com",
-        subject: "New Portfolio Contact Message",
-        text: data
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error("Email error:", error);
-            return res.status(500).send("Message sent to email and saved successfully!");
-        }
-        res.send("Message sent to email and saved successfully!");
+        res.send('Message sent successfully!');
     });
 });
 
-// Start server
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
