@@ -1,10 +1,11 @@
+require('dotenv').config(); // Load environment variables
 const express = require('express');
 const path = require('path');
 const multer = require('multer');
 const mysql = require('mysql2');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Body parser
 app.use(express.urlencoded({ extended: true }));
@@ -14,12 +15,12 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 // Multer setup
 const upload = multer();
 
-// MySQL
+// MySQL connection using .env
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "pooja2007", // your password
-    database: "portfolio"
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 db.connect(err => {
@@ -63,6 +64,7 @@ app.get('/messages', (req, res) => {
     });
 });
 
+// Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
