@@ -50,20 +50,6 @@ app.post('/submit', upload.none(), (req, res) => {
         res.send('Message sent successfully!');
     });
 });
-
-// Optional: View messages in browser
-app.get('/messages', (req, res) => {
-    db.query("SELECT * FROM messages ORDER BY created_at DESC", (err, results) => {
-        if (err) return res.send("Error fetching messages");
-        let html = '<h1>Messages</h1><ul>';
-        results.forEach(msg => {
-            html += `<li><strong>${msg.name}</strong> (${msg.email}): ${msg.message}</li>`;
-        });
-        html += '</ul>';
-        res.send(html);
-    });
-});
-
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
