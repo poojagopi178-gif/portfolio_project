@@ -1,19 +1,15 @@
-require('dotenv').config(); // Load environment variables
+require('dotenv').config();
+
 const express = require('express');
-const path = require('path');
-const multer = require('multer');
 const mysql = require('mysql2');
+const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
-// Middleware
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use('/static', express.static(path.join(__dirname, 'static')));
 
-// Multer setup
-const upload = multer();
+app.use('/static', express.static(path.join(__dirname, 'static')));
 
 // MySQL connection
 const db = mysql.createConnection({
@@ -23,48 +19,32 @@ const db = mysql.createConnection({
     database: process.env.DB_NAME
 });
 
-db.connect(err => {
-    if (err) console.error("DB connection failed:", err);
-    else console.log("Connected to MySQL");
+db.connect((err) => {
+    if (err) {
+        console.log("Database connection failed");
+    } else {
+        console.log("Connected to MySQL");
+    }
 });
 
-// Home route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'templates', 'index.html'));
 });
 
-// Submit form
-app.post('/submit', upload.none(), (req, res) => {
+app.post('/submit', (req, res) => {
     const { name, email, message } = req.body;
 
-    if (!name || !email || !message) {
-        return res.send('All fields are required!');
-    }
-
     const sql = "INSERT INTO messages (name, email, message) VALUES (?, ?, ?)";
+
     db.query(sql, [name, email, message], (err) => {
         if (err) {
-            console.error(err);
-            return res.send('Error saving message.');
+            res.send("Error saving message");
+        } else {
+            res.send("Message saved successfully!");
         }
-        res.send('Message sent successfully!');
     });
 });
 
-// ✅ NEW ROUTE (FIXED YOUR ERROR)
-app.get('/messages', (req, res) => {
-    const sql = "SELECT * FROM messages";
-
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.error(err);
-            return res.send("Error fetching messages");
-        }
-        res.json(results);
-    });
-});
-
-// Start server
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
 });
