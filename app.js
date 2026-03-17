@@ -7,7 +7,7 @@ const mysql = require('mysql2');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Body parser
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/static', express.static(path.join(__dirname, 'static')));
@@ -15,7 +15,7 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 // Multer setup
 const upload = multer();
 
-// MySQL connection using .env
+// MySQL connection
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -28,12 +28,12 @@ db.connect(err => {
     else console.log("Connected to MySQL");
 });
 
-// Serve HTML
+// Home route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'templates', 'index.html'));
 });
 
-// Form submission
+// Submit form
 app.post('/submit', upload.none(), (req, res) => {
     const { name, email, message } = req.body;
 
@@ -50,6 +50,20 @@ app.post('/submit', upload.none(), (req, res) => {
         res.send('Message sent successfully!');
     });
 });
+
+// ✅ NEW ROUTE (FIXED YOUR ERROR)
+app.get('/messages', (req, res) => {
+    const sql = "SELECT * FROM messages";
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.send("Error fetching messages");
+        }
+        res.json(results);
+    });
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
